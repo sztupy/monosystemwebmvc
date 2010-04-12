@@ -1,0 +1,16 @@
+Patches for ASP.NET MVC 2
+=========================
+
+These patches are used in the System.Web.Mvc of S#aml-architecture.
+
+They are intendet to get ASP.NET MVC 2.0 to work under mono 2.4.4
+and higher.
+
+All patches are made in a non-destructive way, to not interfere when
+used in a framework that has the appropriate functionality working.
+
+The compiled files are tested with:
+ - Microsoft .NET 3.5 on Microsoft Windows 7
+ - mono 2.4.4 on Ubuntu 10.04 LTS Server
+ - mono 2.6.3 on Microsoft Windows 7
+ - mono 2.6.3 on OpenSUSE (VMWare image)
