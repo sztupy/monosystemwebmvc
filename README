@@ -6,8 +6,18 @@ These patches are used in the System.Web.Mvc of S#aml-architecture.
 They are intendet to get ASP.NET MVC 2.0 to work under mono 2.4.4
 and higher.
 
-All patches are made in a non-destructive way, to not interfere when
-used in a framework that has the appropriate functionality working.
+Check the commit logs for where and how a patch was implemented.
+Legend:
+ ! : The patch doesn't fix the bug entirely, but keeps the package
+     from crashing on frameworks where it didn't work earlier.
+     The way the patch works might decerase or alter the functionality
+     of the method even on frameworks that didn't need the patch.
+ - : The patch doesn't fix the bug entirely, but keeps the package
+     from crashing on frameworks where it didn't work earlier.
+     The patch doesn't interfere,alter orr decrease functionality on
+     frameworks that doesn't need the patch.
+ * : The patch fixes the bug with a workaround, that doesn't interfere,
+     alter or decrease functionality.
 
 The compiled files are tested with:
  - Microsoft .NET 3.5 on Microsoft Windows 7
