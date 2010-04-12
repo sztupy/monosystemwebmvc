@@ -185,7 +185,8 @@ namespace System.Web.Mvc.Html {
         private static bool ShouldShow(ModelMetadata metadata, TemplateInfo templateInfo) {
             return
                 metadata.ShowForDisplay
-                && metadata.ModelType != typeof(EntityState)
+			// MONO: System.Data.Entity is unavailable
+               // && metadata.ModelType != typeof(EntityState)
                 && !metadata.IsComplexType
                 && !templateInfo.Visited(metadata);
         }
@@ -202,3 +203,4 @@ namespace System.Web.Mvc.Html {
         }
     }
 }
+

@@ -20,7 +20,13 @@ namespace System.Web.Mvc {
         public static bool TryGetDefaultValue(ParameterInfo parameterInfo, out object value) {
             // this will get the default value as seen by the VB / C# compilers
             // if no value was baked in, RawDefaultValue returns DBNull.Value
-            object rawDefaultValue = parameterInfo.RawDefaultValue;
+            object rawDefaultValue = null;
+            try {
+              rawDefaultValue = parameterInfo.RawDefaultValue;
+            }
+            catch (NotImplementedException) {
+              rawDefaultValue = null;
+            }
             if (rawDefaultValue != DBNull.Value) {
                 value = rawDefaultValue;
                 return true;
@@ -40,3 +46,4 @@ namespace System.Web.Mvc {
 
     }
 }
+

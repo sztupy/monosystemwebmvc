@@ -119,7 +119,7 @@ namespace System.Web.Mvc.Html {
             object model = html.ViewContext.ViewData.Model;
 
             Binary modelAsBinary = model as Binary;
-            if (modelAsBinary != null) {
+            if (((System.Object)modelAsBinary) != null) {
                 model = Convert.ToBase64String(modelAsBinary.ToArray());
             }
             else {
@@ -191,7 +191,8 @@ namespace System.Web.Mvc.Html {
         private static bool ShouldShow(ModelMetadata metadata, TemplateInfo templateInfo) {
             return
                 metadata.ShowForEdit
-                && metadata.ModelType != typeof(EntityState)
+				// EntityState is unavailable on mono
+                //&& metadata.ModelType != typeof(EntityState)
                 && !metadata.IsComplexType
                 && !templateInfo.Visited(metadata);
         }
@@ -211,3 +212,4 @@ namespace System.Web.Mvc.Html {
         }
     }
 }
+

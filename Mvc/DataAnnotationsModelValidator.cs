@@ -30,7 +30,9 @@ namespace System.Web.Mvc {
 
         protected internal string ErrorMessage {
             get {
-                return Attribute.FormatErrorMessage(Metadata.GetDisplayName());
+                // FormatErrorMessage is not implemented in mono
+                return "Validation error (" + Attribute.GetType().ToString() + "): " + Metadata.GetDisplayName();
+                //return Attribute.FormatErrorMessage(Metadata.GetDisplayName());
             }
         }
 
@@ -45,6 +47,21 @@ namespace System.Web.Mvc {
         }
 
         public override IEnumerable<ModelValidationResult> Validate(object container) {
+            // RequiredAttribute is not implemented in mono
+            // This is a small workaround that might work for some and might break for a lot of objects
+            if (IsRequired) {
+              if (ReferenceEquals(Metadata.Model,null)) {
+                yield return new ModelValidationResult
+                {
+                  Message = ErrorMessage + " is null"
+                };
+              } else if (Metadata.Model.ToString() == "") {
+                yield return new ModelValidationResult
+                {
+                  Message = ErrorMessage + " is empty"
+                };
+              }
+            } else
             if (!Attribute.IsValid(Metadata.Model)) {
                 yield return new ModelValidationResult {
                     Message = ErrorMessage
@@ -53,3 +70,4 @@ namespace System.Web.Mvc {
         }
     }
 }
+

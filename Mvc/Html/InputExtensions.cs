@@ -132,7 +132,7 @@ namespace System.Web.Mvc.Html {
 
         private static MvcHtmlString HiddenHelper(HtmlHelper htmlHelper, object value, bool useViewData, string expression, IDictionary<string, object> htmlAttributes) {
             Binary binaryValue = value as Binary;
-            if (binaryValue != null) {
+            if (((System.Object)binaryValue) != null) {
                 value = binaryValue.ToArray();
             }
 
@@ -396,3 +396,4 @@ namespace System.Web.Mvc.Html {
         }
     }
 }
+
