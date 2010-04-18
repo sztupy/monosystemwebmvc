@@ -30,9 +30,17 @@ namespace System.Web.Mvc {
 
         protected internal string ErrorMessage {
             get {
-                // FormatErrorMessage is not implemented in mono
-                return "Validation error (" + Attribute.GetType().ToString() + "): " + Metadata.GetDisplayName();
-                //return Attribute.FormatErrorMessage(Metadata.GetDisplayName());
+                string res;
+                try
+                {
+                    // FormatErrorMessage might not be implemented. If not, then simply throw a generic validation error
+                    res = Attribute.FormatErrorMessage(Metadata.GetDisplayName()); 
+                }
+                catch (NotImplementedException)
+                {
+                    res = "Validation error (" + Attribute.GetType().ToString() + "): " + Metadata.GetDisplayName();
+                }
+                return res;
             }
         }
 
@@ -47,23 +55,39 @@ namespace System.Web.Mvc {
         }
 
         public override IEnumerable<ModelValidationResult> Validate(object container) {
-            // RequiredAttribute is not implemented in mono
-            // This is a small workaround that might work for some and might break for a lot of objects
-            if (IsRequired) {
-              if (ReferenceEquals(Metadata.Model,null)) {
+            // RequiredAttribute is not implemented in mono. Do some checks, and
+            // if there is still a NotImplementedException then try to handle it.
+            string Message = "";
+            try
+            {
+                if (!Attribute.IsValid(Metadata.Model))
+                {
+                    Message = ErrorMessage;
+                }
+            }
+            catch (NotImplementedException)
+            {
+                if (IsRequired)
+                {
+                    if (ReferenceEquals(Metadata.Model, null))
+                    {
+                        Message = ErrorMessage + " is null";
+                    }
+                    else if (Metadata.Model.ToString() == "")
+                    {
+                        Message = ErrorMessage + " is empty";
+                    }
+                }
+                else
+                {
+                    // We can't do anything, leave as if there is no validation error
+                    Message = "";
+                }
+            }
+            if (Message != "")
+            {
                 yield return new ModelValidationResult
                 {
-                  Message = ErrorMessage + " is null"
-                };
-              } else if (Metadata.Model.ToString() == "") {
-                yield return new ModelValidationResult
-                {
-                  Message = ErrorMessage + " is empty"
-                };
-              }
-            } else
-            if (!Attribute.IsValid(Metadata.Model)) {
-                yield return new ModelValidationResult {
                     Message = ErrorMessage
                 };
             }
