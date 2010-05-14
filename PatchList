@@ -1,0 +1,56 @@
+-----------------------------------------------------------------------
+This file contains the current list of the patches, and the state of
+the patches as well.
+
+-----------------------------------------------------------------------
+ ! : The patch doesn't fix the bug entirely, but keeps the package
+     from crashing on frameworks where it didn't work earlier.
+     The way the patch works might decerase or alter the functionality
+     of the method even on frameworks that didn't need the patch.
+
+Html/DefaultEditorTemplates.cs
+ ! System.Data.Entity is unavailable: removed modeltype check
+
+Html/DefaultDisplayTemplates.cs
+ ! System.Data.Entity is unavailable: removed modeltype check
+
+TypeDescriptorHelper.cs
+ ! .NET 4-s AssociatedMetadataTypeTypeDescriptionProvider doesn't work
+   well for Mono. Removed.
+
+-----------------------------------------------------------------------
+ - : The patch doesn't fix the bug entirely, but keeps the package
+     from crashing on frameworks where it didn't work earlier.
+     The patch doesn't interfere,alter orr decrease functionality on
+     frameworks that doesn't need the patch.
+
+ParamterInfoUtil.cs
+ - RawDefaultValue is not implemented: returns null instead of default
+   value
+
+DataAnnotationsModelValidator.cs
+ - FormatErrorMessage is not implemented in mono: Creating static strings
+ - RequiredAttribute is not implemented in mono: Implemented for objects
+   and strings
+
+AntiFogeryDataSerializer.cs
+ - If ASP.NET MVC can't ceate the dummp aspx page to serialize the 
+   antiforgerytoken it falls back to a naive serializer implementation.
+   This implementation has a hard coded encryption key, which should be
+   modified if used in a production environment.
+
+-----------------------------------------------------------------------
+ * : The patch fixes the bug with a workaround, that doesn't interfere,
+     alter or decrease functionality.
+
+Html/DefaultEditorTemplates.cs
+ * Binary.operator== throws error: fixed
+
+Html/InputExtensions.cs
+ * Binary.operator== throws error: fixed
+
+TypeDescriptorHelper.cs
+ * AssociatedMetadataTypeTypeDescriptionProvider is unavailable in mono
+   2.4.4: backported from mono 2.6
+
+-----------------------------------------------------------------------
