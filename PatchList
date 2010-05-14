@@ -21,7 +21,7 @@ TypeDescriptorHelper.cs
 -----------------------------------------------------------------------
  - : The patch doesn't fix the bug entirely, but keeps the package
      from crashing on frameworks where it didn't work earlier.
-     The patch doesn't interfere,alter orr decrease functionality on
+     The patch doesn't interfere,alter or decrease functionality on
      frameworks that doesn't need the patch.
 
 ParamterInfoUtil.cs
@@ -34,7 +34,7 @@ DataAnnotationsModelValidator.cs
    and strings
 
 AntiFogeryDataSerializer.cs
- - If ASP.NET MVC can't ceate the dummp aspx page to serialize the 
+ - If ASP.NET MVC can't create the dummy aspx page to serialize the 
    antiforgerytoken it falls back to a naive serializer implementation.
    This implementation has a hard coded encryption key, which should be
    modified if used in a production environment.

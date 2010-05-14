@@ -14,7 +14,7 @@ Legend:
      of the method even on frameworks that didn't need the patch.
  - : The patch doesn't fix the bug entirely, but keeps the package
      from crashing on frameworks where it didn't work earlier.
-     The patch doesn't interfere,alter orr decrease functionality on
+     The patch doesn't interfere,alter or decrease functionality on
      frameworks that doesn't need the patch.
  * : The patch fixes the bug with a workaround, that doesn't interfere,
      alter or decrease functionality.
